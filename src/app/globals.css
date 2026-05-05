@@ -284,17 +284,70 @@ textarea { resize: vertical; min-height: 100px; }
   .route-container { grid-template-columns: 1fr; }
   .map-wrapper { height: 400px; }
   .form-row { grid-template-columns: 1fr 1fr; }
+  .results-summary { gap: 12px; flex-wrap: wrap; }
+  .day-route-header { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 @media (max-width: 768px) {
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
   .mobile-menu-btn { display: flex; }
   .main-content { margin-left: 0; }
-  .content-area { padding: 20px; }
+  .content-area { padding: 16px; }
   .cards-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .results-header { flex-direction: column; align-items: flex-start; }
-  .top-bar { padding: 0 20px; }
+  .top-bar { padding: 0 16px; }
+  .top-bar { gap: 12px; }
+  .page-title h1 { font-size: 1.125rem; }
+  .page-title p { font-size: 0.75rem; }
+  .results-summary { gap: 8px; width: 100%; }
+  .summary-stat { flex: 1; min-width: 0; padding: 8px 12px; }
+  .summary-stat .value { font-size: 1.125rem; }
+  .results-actions { width: 100%; flex-wrap: wrap; }
+  .results-actions .btn { flex: 1; min-width: 0; font-size: 0.75rem; padding: 8px 12px; }
+  .day-route-header { flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px 16px; }
+  .day-route-date { font-size: 0.875rem; }
+  .day-route-header .btn-sm { width: 100%; justify-content: center; }
+  .day-route-place { padding: 8px 16px; }
+  .map-wrapper { height: 280px; }
+  .planner-card { padding: 20px; }
+  .planner-header { margin-bottom: 20px; }
+  .week-toggles { gap: 4px; }
+  .week-chip, .day-chip { padding: 6px 12px; font-size: 0.75rem; }
+  .departure-section { padding: 12px; }
+  .departure-form { padding: 12px; }
+  .departure-types { gap: 4px; }
+  .planner-actions { flex-direction: column; align-items: stretch; }
+  .planner-actions .btn-lg { width: 100%; }
+  .analysis-section { padding: 16px; }
+  .search-box { max-width: 100%; }
+  .places-stats { gap: 12px; }
+  .place-item { padding: 12px 16px; gap: 10px; }
+  .place-number { width: 28px; height: 28px; font-size: 0.75rem; }
+  .place-remove { opacity: 1; }
+  .schedule-wrapper { max-height: 400px; }
+  .sidebar-header { padding: 16px 20px; }
+  .sidebar-nav { padding: 12px 8px; }
+  .nav-item { padding: 10px 12px; font-size: 0.875rem; }
+}
+@media (max-width: 480px) {
+  .content-area { padding: 12px; }
+  .top-bar { padding: 0 12px; height: 60px; }
+  .card-header { padding: 16px 16px 0; flex-direction: column; align-items: flex-start; }
+  .card-body { padding: 16px; }
+  .import-steps { padding: 12px; }
+  .step { font-size: 0.813rem; padding: 4px 0; }
+  .results-summary { gap: 4px; }
+  .summary-stat { padding: 6px 10px; }
+  .summary-stat .value { font-size: 1rem; }
+  .summary-stat .label { font-size: 0.688rem; }
+  .day-route-card { border-radius: var(--radius-md); }
+  .day-route-header { padding: 10px 12px; }
+  .day-route-place { padding: 6px 12px; }
+  .departure-types .week-chip { flex: 1; justify-content: center; }
+  .place-item { padding: 10px 12px; gap: 8px; }
+  .place-status { font-size: 0.688rem; padding: 2px 8px; }
+  select, input, textarea { font-size: 0.875rem; }
 }
 
 ::-webkit-scrollbar { width: 6px; }
