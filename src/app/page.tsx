@@ -177,7 +177,7 @@ export default function Home() {
     return `https://www.google.com/maps/dir/${coords.join('/')}`;
   };
 
-  const generatePlan = () => {
+  const generatePlan = async () => {
     const geocoded = places.filter(p=>p.lat!==null);
     if (!geocoded.length) { showToast('No places with locations'); return; }
     if (geocoded.length < placesPerMonth) { showToast(`Only ${geocoded.length} available`); return; }
@@ -220,8 +220,25 @@ export default function Home() {
 
     for (const date of workdays) {
       if (idx >= selected.length) break;
-      const dayPlaces = selected.slice(idx, idx + perDay);
+      let dayPlaces = selected.slice(idx, idx + perDay);
       idx += perDay;
+
+      // Optimize each day's route using Google Directions API (driving time)
+      if (optimize==='nearest' && dayPlaces.length > 2) {
+        try {
+          const res = await fetch('/api/directions', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({places: dayPlaces.map(p=>({lat:p.lat,lng:p.lng}))})
+          });
+          const data = await res.json();
+          if (data.optimized_order) {
+            dayPlaces = data.optimized_order.map((o:any) =>
+              dayPlaces.find(p => p.lat===o.lat && p.lng===o.lng) || dayPlaces[0]
+            );
+          }
+        } catch(e) {}
+      }
+
       const gmapsUrl = generateGmapsUrl(dayPlaces);
       routes.push({ date, places: dayPlaces, gmapsUrl });
     }
@@ -471,7 +488,7 @@ export default function Home() {
                   <div className="form-group">
                     <label>Route optimization</label>
                     <select value={optimize} onChange={e=>setOptimize(e.target.value)}>
-                      <option value="nearest">Nearest neighbor (shorter routes)</option>
+                      <option value="nearest">Google Maps (driving time optimization)</option>
                       <option value="list">Keep list order</option>
                     </select>
                   </div>
